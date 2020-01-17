@@ -1,5 +1,6 @@
 package selenium;
 
+import framework.NavigationHelper;
 import org.testng.annotations.*;
 
 
@@ -7,23 +8,23 @@ public class GroupCreationTests extends TestBase{
 
     @Test
     public void testNonEmptyGroupCreation() throws Exception {
-        applicationManager.openMainPage();
-        applicationManager.gotoGroupsPage();
-        applicationManager.initGroupCreation();
+        applicationManager.navigationHelper.openMainPage();
+        applicationManager.navigationHelper.gotoGroupsPage();
+        applicationManager.groupHelper.initGroupCreation();
         GroupData groupData = new GroupData("new group", "some logo", "some footer");
-        applicationManager.fillGroupForm(groupData);
-        applicationManager.submitGroupCreation();
-        applicationManager.gotoGroupsPage();
+        applicationManager.groupHelper.fillGroupForm(groupData);
+        applicationManager.groupHelper.submitGroupCreation();
+        applicationManager.navigationHelper.gotoGroupsPage();
     }
 
     @Test
     public void testEmptyGroupCreation() throws Exception {
-        applicationManager.openMainPage();
-        applicationManager.gotoGroupsPage();
-        applicationManager.initGroupCreation();
-        applicationManager.fillGroupForm(new GroupData("new group", "", ""));
-        applicationManager.submitGroupCreation();
-        applicationManager.gotoGroupsPage();
+        applicationManager.navigationHelper.openMainPage();
+        applicationManager.navigationHelper.gotoGroupsPage();
+        applicationManager.groupHelper.initGroupCreation();
+        applicationManager.groupHelper.fillGroupForm(new GroupData("new group", "", ""));
+        applicationManager.groupHelper.submitGroupCreation();
+        applicationManager.navigationHelper.gotoGroupsPage();
     }
 
 }
