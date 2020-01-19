@@ -12,22 +12,40 @@ public class ApplicationManager {
     public static final String baseUrl =  "http://address.book/";
     private StringBuffer verificationErrors = new StringBuffer();
 
-    public NavigationHelper navigationHelper;
-    public GroupHelper groupHelper;
-    public EntryHelper entryHelper;
+    private NavigationHelper navigationHelper;
+    private GroupHelper groupHelper;
+    private EntryHelper entryHelper;
 
     public ApplicationManager() {
         System.setProperty("webdriver.gecko.driver","webdriver\\geckodriver64.exe");
         System.setProperty("webdriver.ie.driver","D:\\src\\JPGdownloader\\webdriver\\IEDriverServer.exe");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-
-        navigationHelper = new NavigationHelper(this);
-        entryHelper = new EntryHelper(this);
-        groupHelper = new GroupHelper(this);
     }
 
     public void stop() {
         driver.quit();
+    }
+
+    public NavigationHelper getNavigationHelper() {
+        if (navigationHelper == null) {
+            navigationHelper = new NavigationHelper(this);
+        }
+        return navigationHelper;
+    }
+
+
+    public GroupHelper getGroupHelper() {
+        if (groupHelper == null) {
+            groupHelper = new GroupHelper(this);
+        }
+        return groupHelper;
+    }
+
+    public EntryHelper getEntryHelper() {
+        if(entryHelper == null) {
+            entryHelper = new EntryHelper(this);
+        }
+        return entryHelper;
     }
 }

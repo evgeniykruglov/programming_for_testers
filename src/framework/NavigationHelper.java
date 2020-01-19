@@ -9,11 +9,11 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void gotoGroupsPage() {
-        driver.findElement(By.linkText("groups")).click();
+        click(By.linkText("groups"));
     }
 
     public void gotoAddNewEntryPage() {
-        driver.findElement(By.linkText("add new")).click();
+        click(By.linkText("add new"));
     }
 
     public void openMainPage() {

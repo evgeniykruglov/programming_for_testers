@@ -1,5 +1,6 @@
 package selenium;
 
+import framework.ApplicationManager;
 import framework.EntryHelper;
 import framework.NavigationHelper;
 import org.testng.annotations.Test;
@@ -9,13 +10,13 @@ public class  UserCreationTests extends TestBase{
 
     @Test
     public void testEntryCreation() throws Exception {
-        applicationManager.navigationHelper.openMainPage();
-        applicationManager.navigationHelper.gotoAddNewEntryPage();
+        applicationManager.getNavigationHelper().openMainPage();
+        applicationManager.getNavigationHelper().gotoAddNewEntryPage();
         //initEntryCreation();
         EntryData entryData = new EntryData("Ivan", "Brovkin", "Moscow");
-        applicationManager.entryHelper.fillEntryForm(entryData);
-        applicationManager.entryHelper.submitEntryCreation();
-        applicationManager.navigationHelper.gotoAddNewEntryPage();
+        applicationManager.getEntryHelper().fillEntryForm(entryData);
+        applicationManager.getEntryHelper().submitEntryCreation();
+        applicationManager.getNavigationHelper().gotoAddNewEntryPage();
     }
 
 }

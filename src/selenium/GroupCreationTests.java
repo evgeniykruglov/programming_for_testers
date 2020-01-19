@@ -8,23 +8,23 @@ public class GroupCreationTests extends TestBase{
 
     @Test
     public void testNonEmptyGroupCreation() throws Exception {
-        applicationManager.navigationHelper.openMainPage();
-        applicationManager.navigationHelper.gotoGroupsPage();
-        applicationManager.groupHelper.initGroupCreation();
+        applicationManager.getNavigationHelper().openMainPage();
+        applicationManager.getNavigationHelper().gotoGroupsPage();
+        applicationManager.getGroupHelper().initGroupCreation();
         GroupData groupData = new GroupData("new group", "some logo", "some footer");
-        applicationManager.groupHelper.fillGroupForm(groupData);
-        applicationManager.groupHelper.submitGroupCreation();
-        applicationManager.navigationHelper.gotoGroupsPage();
+        applicationManager.getGroupHelper().fillGroupForm(groupData);
+        applicationManager.getGroupHelper().submitGroupCreation();
+        applicationManager.getNavigationHelper().gotoGroupsPage();
     }
 
     @Test
     public void testEmptyGroupCreation() throws Exception {
-        applicationManager.navigationHelper.openMainPage();
-        applicationManager.navigationHelper.gotoGroupsPage();
-        applicationManager.groupHelper.initGroupCreation();
-        applicationManager.groupHelper.fillGroupForm(new GroupData("new group", "", ""));
-        applicationManager.groupHelper.submitGroupCreation();
-        applicationManager.navigationHelper.gotoGroupsPage();
+        applicationManager.getNavigationHelper().openMainPage();
+        applicationManager.getNavigationHelper().gotoGroupsPage();
+        applicationManager.getGroupHelper().initGroupCreation();
+        applicationManager.getGroupHelper().fillGroupForm(new GroupData("new group", "", ""));
+        applicationManager.getGroupHelper().submitGroupCreation();
+        applicationManager.getNavigationHelper().gotoGroupsPage();
     }
 
 }

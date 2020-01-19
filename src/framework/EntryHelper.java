@@ -9,15 +9,12 @@ public class EntryHelper extends HelperBase{
     }
 
     public void fillEntryForm(EntryData entryData) {
-        driver.findElement(By.name("firstname")).clear();
-        driver.findElement(By.name("firstname")).sendKeys(entryData.getFirstName());
-        driver.findElement(By.name("lastname")).clear();
-        driver.findElement(By.name("lastname")).sendKeys(entryData.getLastName());
-        driver.findElement(By.name("address")).clear();
-        driver.findElement(By.name("address")).sendKeys(entryData.getAddress());
+        type(By.name("firstname"), entryData.getFirstName());
+        type(By.name("lastname"), entryData.getLastName());
+        type(By.name("address"), entryData.getAddress());
     }
 
     public void submitEntryCreation() {
-        driver.findElement(By.name("submit")).click();
+        click(By.name("submit"));
     }
 }
