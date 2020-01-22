@@ -22,4 +22,20 @@ public class GroupHelper extends HelperBase {
         type(By.name("group_footer"), groupData.getFooter());
     }
 
+    public void initGroupEdit() {
+        click(By.xpath("//input[contains(@value,'Edit group')]"));
+    }
+
+    public void deleteGroup() {
+        //click(By.xpath("//*[@id=\"content\"]/form[2]/input[1]"));
+        click(By.name("delete"));
+    }
+
+    public void tickGroupCheckbox(int i) {
+        click(By.xpath("//input[@name='selected[]'][" + i + "]"));
+    }
+
+    public void submitGroupEdition() {
+        click(By.xpath("//input[contains(@value,'Update')]"));
+    }
 }

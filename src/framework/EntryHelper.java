@@ -17,4 +17,10 @@ public class EntryHelper extends HelperBase{
     public void submitEntryCreation() {
         click(By.name("submit"));
     }
+
+    public void deleteGroupById(int i) {
+        //click(By.xpath("//*[@id=\"content\"]/form[2]/input[1]"));
+        click(By.xpath("//input[@name='selected[]'][" + i + "]"));
+        click(By.name("delete"));
+    }
 }
