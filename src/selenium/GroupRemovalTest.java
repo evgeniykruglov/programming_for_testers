@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class GroupRemovalTest extends TestBase {
 
@@ -15,13 +16,15 @@ public class GroupRemovalTest extends TestBase {
 
 
         List<GroupData> originlist = applicationManager.getGroupHelper().getGroups();
+        Random rnd = new Random();
+        int index = rnd.nextInt(originlist.size()-1);
 
         //applicationManager.getGroupHelper().tickGroupCheckbox(2);
-        applicationManager.getGroupHelper().deleteGroup(0);
+        applicationManager.getGroupHelper().deleteGroup(index);
         applicationManager.getNavigationHelper().gotoGroupsPage();
 
         List<GroupData> newList = applicationManager.getGroupHelper().getGroups();
-        originlist.remove(0);
+        originlist.remove(index);
         Collections.sort(originlist);
         Assert.assertEquals(newList, originlist);
     }
