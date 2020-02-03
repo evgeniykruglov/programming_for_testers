@@ -1,7 +1,11 @@
 package framework;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import selenium.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupHelper extends HelperBase {
     public GroupHelper(ApplicationManager manager) {
@@ -31,11 +35,28 @@ public class GroupHelper extends HelperBase {
         click(By.name("delete"));
     }
 
+    public void deleteGroup(int i) {
+        tickGroupCheckbox(i);
+        deleteGroup();
+    }
+
     public void tickGroupCheckbox(int i) {
-        click(By.xpath("//input[@name='selected[]'][" + i + "]"));
+        click(By.xpath("//input[@name='selected[]'][" + (i+1) + "]"));
     }
 
     public void submitGroupEdition() {
         click(By.xpath("//input[contains(@value,'Update')]"));
+    }
+
+    public List<GroupData> getGroups() {
+        List<GroupData> groups = new ArrayList<GroupData>();
+        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
+        for (WebElement checkbox : checkboxes) {
+            GroupData group = new GroupData();
+            String title = checkbox.getAttribute("title");
+            group.setName(title.substring("Select (".length(), title.length() - ")".length() ));
+            groups.add(group);
+        }
+        return groups;
     }
 }

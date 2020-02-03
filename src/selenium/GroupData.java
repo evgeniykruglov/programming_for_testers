@@ -1,6 +1,6 @@
 package selenium;
 
-public class GroupData {
+public class GroupData implements Comparable<GroupData>{
     private String name;
     private String header;
     private String footer;
@@ -39,4 +39,36 @@ public class GroupData {
     public String getFooter() {
         return footer;
     }
+
+    @Override
+    public String toString() {
+        return "GroupData{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GroupData groupData = (GroupData) o;
+
+        return getName().equals(groupData.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
+    public int compareTo(GroupData o) {
+        return this.name.toLowerCase().compareTo(o.name.toLowerCase());
+    }
+    /*
+        @Override
+        public String toString() {
+        return "GroupData [name" + name + "]";
+    }
+     */
 }
