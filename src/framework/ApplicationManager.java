@@ -2,6 +2,8 @@ package framework;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.opera.OperaDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,10 +18,23 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private EntryHelper entryHelper;
 
-    public ApplicationManager() {
-        System.setProperty("webdriver.gecko.driver","webdriver\\geckodriver64.exe");
-        System.setProperty("webdriver.ie.driver","D:\\src\\JPGdownloader\\webdriver\\IEDriverServer.exe");
-        driver = new FirefoxDriver();
+    public ApplicationManager() throws Exception {
+        switch (Constants.WEBDRIVER.getText().charAt(0)) {
+            case 'o':
+                System.setProperty("webdriver.opera.driver",Constants.OPERA_DRIVER_PATH.getText());
+                driver = new OperaDriver();
+                break;
+            case 'f':
+                System.setProperty("webdriver.gecko.driver",Constants.FIREFOX_DRIVER_PATH.getText());
+                driver = new FirefoxDriver();
+                break;
+            case 'i':
+                System.setProperty("webdriver.ie.driver",Constants.IE_DRIVER_PATH.getText());
+                driver = new InternetExplorerDriver();
+                break;
+            default:
+                throw new Exception("Type of webdriver is not specified. Please set value for constant Constants.WEBDRIVER");
+        }
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
 
