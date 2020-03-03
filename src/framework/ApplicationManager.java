@@ -13,7 +13,7 @@ public class ApplicationManager {
     protected WebDriver driver;
     public static final String baseUrl =  "http://address.book/";
     private StringBuffer verificationErrors = new StringBuffer();
-
+    private ContactHelper contactHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private EntryHelper entryHelper;
@@ -62,5 +62,12 @@ public class ApplicationManager {
             entryHelper = new EntryHelper(this);
         }
         return entryHelper;
+    }
+
+    public ContactHelper getContactHelper() {
+        if (contactHelper == null) {
+            contactHelper = new ContactHelper(this);
+        }
+        return contactHelper;
     }
 }
