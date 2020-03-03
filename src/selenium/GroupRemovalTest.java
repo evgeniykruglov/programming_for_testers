@@ -19,7 +19,6 @@ public class GroupRemovalTest extends TestBase {
         Random rnd = new Random();
         int index = rnd.nextInt(originlist.size()-1);
 
-        //applicationManager.getGroupHelper().tickGroupCheckbox(2);
         applicationManager.getGroupHelper().deleteGroup(index);
         applicationManager.getNavigationHelper().gotoGroupsPage();
 

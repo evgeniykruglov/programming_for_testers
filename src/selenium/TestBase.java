@@ -26,10 +26,10 @@ public class TestBase {
     public Iterator<Object[]> randomValidGroupGenerator() {
         List<Object[]> list = new ArrayList<Object[]>();
         for (int i = 0; i < 5 ; i++) {
-            GroupData group = new GroupData();
-            group.setName(generateRandomString("name"));
-            group.setFooter(generateRandomString("footer"));
-            group.setHeader(generateRandomString("header"));
+            GroupData group = new GroupData()
+                    .withName(generateRandomString("name"))
+                    .withHeader(generateRandomString("footer"))
+                    .withFooter(generateRandomString("header"));
             list.add(new Object[]{group});
         }
         return list.iterator();

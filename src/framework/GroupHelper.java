@@ -12,32 +12,38 @@ public class GroupHelper extends HelperBase {
         super(manager);
     }
 
-    public void initGroupCreation() {
+    public GroupHelper initGroupCreation() {
         click(By.name("new"));
+        return this;
     }
 
-    public void submitGroupCreation() {
+    public GroupHelper submitGroupCreation() {
         click(By.name("submit"));
+        return this;
     }
 
-    public void fillGroupForm(GroupData groupData) {
+    public GroupHelper fillGroupForm(GroupData groupData) {
         type(By.name("group_name"), groupData.getName());
         type(By.name("group_header"), groupData.getHeader());
         type(By.name("group_footer"), groupData.getFooter());
+        return this;
     }
 
-    public void initGroupEdit() {
+    public GroupHelper initGroupEdit() {
         click(By.xpath("//input[contains(@value,'Edit group')]"));
+        return this;
     }
 
-    public void deleteGroup() {
+    public GroupHelper deleteGroup() {
         //click(By.xpath("//*[@id=\"content\"]/form[2]/input[1]"));
         click(By.name("delete"));
+        return this;
     }
 
-    public void deleteGroup(int i) {
+    public GroupHelper deleteGroup(int i) {
         tickGroupCheckbox(i);
         deleteGroup();
+        return this;
     }
 
     public void tickGroupCheckbox(int i) {
@@ -52,9 +58,9 @@ public class GroupHelper extends HelperBase {
         List<GroupData> groups = new ArrayList<GroupData>();
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
         for (WebElement checkbox : checkboxes) {
-            GroupData group = new GroupData();
             String title = checkbox.getAttribute("title");
-            group.setName(title.substring("Select (".length(), title.length() - ")".length() ));
+            GroupData group = new GroupData()
+                    .withName(title.substring("Select (".length(), title.length() - ")".length() ));
             groups.add(group);
         }
         return groups;

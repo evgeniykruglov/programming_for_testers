@@ -17,10 +17,9 @@ public class GroupModificationTests extends TestBase {
         Random rnd = new Random();
         int index = rnd.nextInt(originlist.size()-1);
         applicationManager.getGroupHelper().tickGroupCheckbox(index);
-        applicationManager.getGroupHelper().initGroupEdit();
-        group.setName("edited name1");
-        applicationManager.getGroupHelper().fillGroupForm(group);
-        applicationManager.getGroupHelper().submitGroupEdition();
+        applicationManager.getGroupHelper().initGroupEdit()
+                                           .fillGroupForm(group)
+                                           .submitGroupEdition();
         applicationManager.getNavigationHelper().gotoGroupsPage();
 
         List<GroupData> newList = applicationManager.getGroupHelper().getGroups();
