@@ -1,7 +1,7 @@
 package framework;
 
 public enum Constants {
-    WEBDRIVER("o"),
+    WEBDRIVER("f"),
     OPERA_DRIVER_PATH("webdriver//operadriver"), // Use command "chmod +x operadriver" before first start
     FIREFOX_DRIVER_PATH("webdriver\\geckodriver64.exe"),
     IE_DRIVER_PATH("webdriver\\IEDriverServer.exe");

@@ -12,7 +12,21 @@ public class GroupHelper extends HelperBase {
         super(manager);
     }
 
+    public List<GroupData> getGroups() {
+        //manager.getNavigationHelper().openMainPage();
+        List<GroupData> groups = new ArrayList<GroupData>();
+        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
+        for (WebElement checkbox : checkboxes) {
+            String title = checkbox.getAttribute("title");
+            GroupData group = new GroupData()
+                    .withName(title.substring("Select (".length(), title.length() - ")".length() ));
+            groups.add(group);
+        }
+        return groups;
+    }
+
     public GroupHelper initGroupCreation() {
+        returnToGroupsPage();
         click(By.name("new"));
         return this;
     }
@@ -34,9 +48,11 @@ public class GroupHelper extends HelperBase {
         return this;
     }
 
-    public GroupHelper deleteGroup() {
-        //click(By.xpath("//*[@id=\"content\"]/form[2]/input[1]"));
-        click(By.name("delete"));
+    public GroupHelper createGroup(GroupData groupData) {
+        returnToGroupsPage();
+        initGroupCreation();
+        fillGroupForm(groupData);
+        submitGroupCreation();
         return this;
     }
 
@@ -44,6 +60,19 @@ public class GroupHelper extends HelperBase {
         tickGroupCheckbox(i);
         deleteGroup();
         return this;
+    }
+
+    public GroupHelper modifyGroup(int index, GroupData group) {
+        tickGroupCheckbox(index);
+        initGroupEdit();
+        fillGroupForm(group);
+        submitGroupEdition();
+        returnToGroupsPage();
+        return this;
+    }
+
+    private void returnToGroupsPage() {
+        manager.getNavigationHelper().gotoGroupsPage();
     }
 
     public void tickGroupCheckbox(int i) {
@@ -54,15 +83,10 @@ public class GroupHelper extends HelperBase {
         click(By.xpath("//input[contains(@value,'Update')]"));
     }
 
-    public List<GroupData> getGroups() {
-        List<GroupData> groups = new ArrayList<GroupData>();
-        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
-        for (WebElement checkbox : checkboxes) {
-            String title = checkbox.getAttribute("title");
-            GroupData group = new GroupData()
-                    .withName(title.substring("Select (".length(), title.length() - ")".length() ));
-            groups.add(group);
-        }
-        return groups;
+
+    private GroupHelper deleteGroup() {
+        //click(By.xpath("//*[@id=\"content\"]/form[2]/input[1]"));
+        click(By.name("delete"));
+        return this;
     }
 }

@@ -11,7 +11,7 @@ public class GroupRemovalTest extends TestBase {
 
     @Test
     public void deleteSomeGroup() {
-        applicationManager.getNavigationHelper().openMainPage();
+        //applicationManager.getNavigationHelper().openMainPage();
         applicationManager.getNavigationHelper().gotoGroupsPage();
 
 

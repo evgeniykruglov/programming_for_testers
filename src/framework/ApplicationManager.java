@@ -36,6 +36,7 @@ public class ApplicationManager {
                 throw new Exception("Type of webdriver is not specified. Please set value for constant Constants.WEBDRIVER");
         }
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.get(ApplicationManager.baseUrl + "/");
     }
 
     public void stop() {

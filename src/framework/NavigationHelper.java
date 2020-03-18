@@ -1,6 +1,9 @@
 package framework;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class NavigationHelper extends HelperBase {
 
@@ -9,7 +12,9 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void gotoGroupsPage() {
-        click(By.linkText("groups"));
+        if (!onGroupPage()){
+            click(By.linkText("groups"));
+        }
     }
 
     public void gotoAddNewEntryPage() {
@@ -17,12 +22,18 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void openMainPage() {
-        driver.get(ApplicationManager.baseUrl + "/");
+        if(!onMainPage()) {
+            click(By.linkText("home"));
+        }
     }
 
-    public void deleteGroupById(int i) {
-        //click(By.xpath("//*[@id=\"content\"]/form[2]/input[1]"));
-        click(By.xpath("//input[@name='selected[]'][" + i + "]"));
-        click(By.name("delete"));
+    private boolean onMainPage() {
+        return (driver.findElements(By.id("maintable")).size()>0);
+    }
+
+    private boolean onGroupPage() {
+        String currentUrl = driver.getCurrentUrl();
+        List<WebElement> listOfElements = driver.findElements(By.name("new"));
+        return (currentUrl.contains("/group.php") && listOfElements.size() > 0);
     }
 }

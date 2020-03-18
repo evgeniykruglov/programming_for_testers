@@ -1,23 +1,23 @@
 package selenium;
 
-import org.testng.Assert;
-import org.testng.annotations.*;
+        import org.junit.Before;
+        import org.testng.Assert;
+        import org.testng.annotations.*;
 
-import java.util.*;
+        import java.util.*;
 
 
 public class GroupCreationTests extends TestBase{
+    @Before
+
+
     @Test(dataProvider = "randomValidGroupGenerator")
     public void testGroupCreationWithValidData(GroupData groupData) throws Exception {
-        applicationManager.getNavigationHelper().openMainPage();
-        applicationManager.getNavigationHelper().gotoGroupsPage();
-
+        //applicationManager.getNavigationHelper().openMainPage();
         List<GroupData> originlist = applicationManager.getGroupHelper().getGroups();
-
-        applicationManager.getGroupHelper().initGroupCreation()
-                                           .fillGroupForm(groupData)
-                                           .submitGroupCreation();
+        applicationManager.getGroupHelper().createGroup(groupData);
         applicationManager.getNavigationHelper().gotoGroupsPage();
+
 
         List<GroupData> newList = applicationManager.getGroupHelper().getGroups();
         Assert.assertEquals(originlist.size() + 1, newList.size());
