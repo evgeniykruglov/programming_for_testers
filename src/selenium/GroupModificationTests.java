@@ -1,11 +1,13 @@
 package selenium;
 
 import framework.GroupHelper;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.testng.Assert.assertEquals;
+import org.testng.annotations.Test;
+import utils.SortedListOf;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class GroupModificationTests extends TestBase {
@@ -14,17 +16,19 @@ public class GroupModificationTests extends TestBase {
         //applicationManager.getNavigationHelper().openMainPage();
         applicationManager.getNavigationHelper().gotoGroupsPage();
         GroupHelper groupHelper =applicationManager.getGroupHelper();
-        List<GroupData> originlist = groupHelper.getGroups();
+        SortedListOf<GroupData> originlist = groupHelper.getGroups();
         Random rnd = new Random();
         int index = rnd.nextInt(originlist.size()-1);
 
         groupHelper.modifyGroup(index, group);
 
 
-        List<GroupData> newList = groupHelper.getGroups();
-        originlist.remove(index);
-        originlist.add(group);
-        Collections.sort(originlist);
-        Assert.assertEquals(newList, originlist);
+        SortedListOf<GroupData>  newList = groupHelper.getGroups();
+
+        assertThat(newList, equalTo(originlist.without(index).withAdded(group)));
+//        originlist.remove(index);
+//        originlist.add(group);
+//        //Collections.sort(originlist);
+//        assertEquals(newList, originlist);
     }
 }

@@ -3,26 +3,37 @@ package framework;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import selenium.GroupData;
+import utils.ListOf;
+import utils.SortedListOf;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GroupHelper extends HelperBase {
+    private SortedListOf<GroupData> cachedGroups;
+
     public GroupHelper(ApplicationManager manager) {
         super(manager);
     }
 
-    public List<GroupData> getGroups() {
+    public SortedListOf<GroupData> getGroups() {
         //manager.getNavigationHelper().openMainPage();
-        List<GroupData> groups = new ArrayList<GroupData>();
+
+        if(cachedGroups == null) {
+            rebuildCache();
+        }
+        return cachedGroups;
+    }
+
+    private void rebuildCache() {
+        this.cachedGroups = new SortedListOf<GroupData>();
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
         for (WebElement checkbox : checkboxes) {
             String title = checkbox.getAttribute("title");
             GroupData group = new GroupData()
                     .withName(title.substring("Select (".length(), title.length() - ")".length() ));
-            groups.add(group);
+            this.cachedGroups.add(group);
         }
-        return groups;
     }
 
     public GroupHelper initGroupCreation() {
@@ -33,6 +44,7 @@ public class GroupHelper extends HelperBase {
 
     public GroupHelper submitGroupCreation() {
         click(By.name("submit"));
+        this.cachedGroups = null;
         return this;
     }
 
@@ -81,12 +93,14 @@ public class GroupHelper extends HelperBase {
 
     public void submitGroupEdition() {
         click(By.xpath("//input[contains(@value,'Update')]"));
+        this.cachedGroups = null;
     }
 
 
     private GroupHelper deleteGroup() {
         //click(By.xpath("//*[@id=\"content\"]/form[2]/input[1]"));
         click(By.name("delete"));
+        this.cachedGroups = null;
         return this;
     }
 }
