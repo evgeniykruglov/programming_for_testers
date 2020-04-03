@@ -1,9 +1,11 @@
 package framework;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +33,10 @@ public class ApplicationManager {
             case 'i':
                 System.setProperty("webdriver.ie.driver",Constants.IE_DRIVER_PATH.getText());
                 driver = new InternetExplorerDriver();
+                break;
+            case 'c':
+                System.setProperty("webdriver.chrome.driver",Constants.CHROME_DRIVER_PATH.getText());
+                driver = new ChromeDriver();
                 break;
             default:
                 throw new Exception("Type of webdriver is not specified. Please set value for constant Constants.WEBDRIVER");
