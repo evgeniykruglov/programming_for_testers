@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import static selenium.GroupDataGenerator.generateRandomGroups;
+
 public class TestBase {
     protected ApplicationManager applicationManager;
 
@@ -24,23 +26,16 @@ public class TestBase {
 
     @DataProvider
     public Iterator<Object[]> randomValidGroupGenerator() {
-        List<Object[]> list = new ArrayList<Object[]>();
-        for (int i = 0; i < 5 ; i++) {
-            GroupData group = new GroupData()
-                    .withName(generateRandomString("name"))
-                    .withHeader(generateRandomString("footer"))
-                    .withFooter(generateRandomString("header"));
-            list.add(new Object[]{group});
-        }
+        List<GroupData> groupData = generateRandomGroups(5);
+        List<Object[]> list = wrapGroupForDataProvider(groupData);
         return list.iterator();
     }
 
-    public String generateRandomString(String title) {
-        Random rnd = new Random();
-        if (rnd.nextInt(10) == 0) {
-            return "";
-        } else {
-            return title + rnd.nextInt();
+    private List<Object[]> wrapGroupForDataProvider(List<GroupData> groups) {
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (GroupData group: groups) {
+            list.add(new Object[] {group});
         }
+        return list;
     }
 }
