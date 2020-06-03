@@ -14,7 +14,7 @@ public class GroupCreationTests extends TestBase{
     @Before
 
 
-    @Test(dataProvider = "randomValidGroupGenerator")
+    @Test(dataProvider = "groupsFromFile")
     public void testGroupCreationWithValidData(GroupData groupData) throws Exception {
         applicationManager.getNavigationHelper().gotoGroupsPage();
         SortedListOf<GroupData> originlist = applicationManager.getGroupHelper().getGroups();

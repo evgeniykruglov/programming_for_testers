@@ -2,13 +2,13 @@ package selenium;
 
 import utils.ListOf;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GroupDataGenerator {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if (args.length < 3) {
             System.out.println("Count of params less than 3");
             return;
@@ -25,7 +25,7 @@ public class GroupDataGenerator {
         } else if("xml".equals(format)){
             saveGroupsToXMLFile(groupDataList, file);
         } else {
-            System.out.println("Unknow format: " + format);
+            System.out.println("Unknown format: " + format);
             return;
         }
     }
@@ -34,8 +34,12 @@ public class GroupDataGenerator {
 
     }
 
-    private static void saveGroupsToCSVFile(List<GroupData> groupDataList, File file) {
-
+    private static void saveGroupsToCSVFile(List<GroupData> groupDataList, File file) throws IOException {
+        FileWriter writer = new FileWriter(file);
+        for (GroupData group: groupDataList) {
+            writer.write(group.getName() + "," + group.getHeader() + "," + group.getFooter() +",!" +"\n");
+        }
+        writer.close();
     }
 
     public static List<GroupData> generateRandomGroups(int amount) {
@@ -43,10 +47,29 @@ public class GroupDataGenerator {
         for (int i = 0; i < amount ; i++) {
             GroupData group = new GroupData()
                     .withName(generateRandomString("name"))
-                    .withHeader(generateRandomString("footer"))
-                    .withFooter(generateRandomString("header"));
+                    .withHeader(generateRandomString("header"))
+                    .withFooter(generateRandomString("footer"));
             list.add(group);
         }
+        return list;
+    }
+
+    public static List<GroupData> loadGroupsFromCsvFile(File file) throws IOException {
+        List<GroupData> list = new ArrayList<GroupData>();
+        FileReader reader = new FileReader(file);
+        BufferedReader bufferedReader =  new BufferedReader(reader);
+        String line = bufferedReader.readLine();
+        while (line != null) {
+            String[] parts = line.split(",");
+            GroupData group = new GroupData()
+                    .withName(parts[0])
+                    .withHeader(parts[1])
+                    .withFooter(parts[2]);
+            list.add(group);
+            line = bufferedReader.readLine();
+        }
+
+        reader.close();
         return list;
     }
 

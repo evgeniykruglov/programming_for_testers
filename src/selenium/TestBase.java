@@ -3,12 +3,14 @@ package selenium;
 import framework.ApplicationManager;
 import org.testng.annotations.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import static selenium.GroupDataGenerator.generateRandomGroups;
+import static selenium.GroupDataGenerator.loadGroupsFromCsvFile;
 
 public class TestBase {
     protected ApplicationManager applicationManager;
@@ -30,6 +32,11 @@ public class TestBase {
         List<Object[]> list = wrapGroupForDataProvider(groupData);
         return list.iterator();
     }
+
+    @DataProvider
+    public Iterator<Object[]> groupsFromFile() throws IOException {
+        return wrapGroupForDataProvider(loadGroupsFromCsvFile(new File("groups.csv"))).iterator();
+       }
 
     private List<Object[]> wrapGroupForDataProvider(List<GroupData> groups) {
         List<Object[]> list = new ArrayList<Object[]>();

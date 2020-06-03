@@ -74,7 +74,7 @@ public class GroupData implements Comparable<GroupData>{
         return this;
     }
     public GroupData withHeader(String header) {
-        this.footer = header;
+        this.header = header;
         return this;
     }
     public GroupData withFooter(String footer) {
