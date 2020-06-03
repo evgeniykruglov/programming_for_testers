@@ -1,5 +1,6 @@
 package selenium;
 
+import com.thoughtworks.xstream.XStream;
 import utils.ListOf;
 
 import java.io.*;
@@ -31,8 +32,12 @@ public class GroupDataGenerator {
     }
 
     private static void saveGroupsToXMLFile(List<GroupData> groupDataList, File file) {
-
+        XStream xstream = new XStream();
     }
+    public static List<GroupData> loadGroupsFromXMLFile(File file) {
+        return null;
+    }
+
 
     private static void saveGroupsToCSVFile(List<GroupData> groupDataList, File file) throws IOException {
         FileWriter writer = new FileWriter(file);
