@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static selenium.GroupDataGenerator.generateRandomGroups;
-import static selenium.GroupDataGenerator.loadGroupsFromCsvFile;
+import static selenium.GroupDataGenerator.*;
 
 public class TestBase {
     protected ApplicationManager applicationManager;
@@ -34,9 +33,14 @@ public class TestBase {
     }
 
     @DataProvider
-    public Iterator<Object[]> groupsFromFile() throws IOException {
+    public Iterator<Object[]> groupsFromCSVFile() throws IOException {
         return wrapGroupForDataProvider(loadGroupsFromCsvFile(new File("groups.csv"))).iterator();
-       }
+    }
+
+    @DataProvider
+    public Iterator<Object[]> groupsFromXMLFile() throws IOException {
+        return wrapGroupForDataProvider(loadGroupsFromXMLFile(new File("groups.xml"))).iterator();
+    }
 
     private List<Object[]> wrapGroupForDataProvider(List<GroupData> groups) {
         List<Object[]> list = new ArrayList<Object[]>();
