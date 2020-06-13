@@ -1,4 +1,4 @@
-package selenium;
+package selenium_web;
 
 public class EntryData {
     private final String firstName;

@@ -1,4 +1,4 @@
-package framework;
+package selenium_web.framework;
 
 public enum Constants {
     WEBDRIVER("o"),

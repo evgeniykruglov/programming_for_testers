@@ -1,9 +1,7 @@
-package framework;
+package selenium_web.framework;
 
-import framework.ApplicationManager;
-import framework.HelperBase;
 import org.openqa.selenium.By;
-import selenium.ContactData;
+import selenium_web.ContactData;
 
 public class ContactHelper extends HelperBase {
     public static boolean CREATION = true;

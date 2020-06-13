@@ -1,7 +1,7 @@
-package framework;
+package selenium_web.framework;
 
 import org.openqa.selenium.By;
-import selenium.EntryData;
+import selenium_web.EntryData;
 
 public class EntryHelper extends HelperBase{
     public EntryHelper(ApplicationManager manager) {

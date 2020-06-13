@@ -1,12 +1,10 @@
-package framework;
+package selenium_web.framework;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import selenium.GroupData;
-import utils.ListOf;
+import selenium_web.GroupData;
 import utils.SortedListOf;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GroupHelper extends HelperBase {

@@ -1,13 +1,13 @@
-package selenium;
+package selenium_web;
 
-import framework.GroupHelper;
+import selenium_web.framework.GroupHelper;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 import utils.SortedListOf;
-import java.util.Collections;
+
 import java.util.Random;
 
 public class GroupModificationTests extends TestBase {

@@ -1,8 +1,5 @@
-package selenium;
+package selenium_web;
 
-import framework.ApplicationManager;
-import framework.EntryHelper;
-import framework.NavigationHelper;
 import org.testng.annotations.Test;
 
 

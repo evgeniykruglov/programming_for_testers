@@ -1,27 +1,30 @@
-package framework;
+package selenium_web.framework;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.fail;
 
 public class ApplicationManager {
     protected WebDriver driver;
-    public static final String baseUrl =  "http://address.book/";
+    public String baseUrl;
     private StringBuffer verificationErrors = new StringBuffer();
     private ContactHelper contactHelper;
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private EntryHelper entryHelper;
+    private Properties properties;
 
-    public ApplicationManager() throws Exception {
-        switch (Constants.WEBDRIVER.getText().charAt(0)) {
+    public ApplicationManager(Properties props) throws Exception {
+        properties = props;
+        baseUrl = properties.getProperty("baseUrl");
+        switch (properties.getProperty("browser").charAt(0)) {
             case 'o':
                 System.setProperty("webdriver.opera.driver",Constants.OPERA_DRIVER_PATH.getText());
                 driver = new OperaDriver();
@@ -42,7 +45,7 @@ public class ApplicationManager {
                 throw new Exception("Type of webdriver is not specified. Please set value for constant Constants.WEBDRIVER");
         }
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        driver.get(ApplicationManager.baseUrl + "/");
+        driver.get(baseUrl + "/");
     }
 
     public void stop() {

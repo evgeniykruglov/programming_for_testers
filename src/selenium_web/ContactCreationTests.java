@@ -1,6 +1,6 @@
-package selenium;
+package selenium_web;
 
-import framework.ContactHelper;
+import selenium_web.framework.ContactHelper;
 import org.testng.annotations.Test;
 
 public class ContactCreationTests extends TestBase {

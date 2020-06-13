@@ -1,22 +1,25 @@
-package selenium;
+package selenium_web;
 
-import framework.ApplicationManager;
+import selenium_web.framework.ApplicationManager;
 import org.testng.annotations.*;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static selenium.GroupDataGenerator.*;
+import java.util.Properties;
 
 public class TestBase {
     protected ApplicationManager applicationManager;
 
     @BeforeClass
     public void setUp() throws Exception  {
-        applicationManager = new ApplicationManager();
+        String configFile = System.getProperty("config", "application.properties");
+        Properties p = new Properties();
+        p.load(new FileReader(new File(configFile)));
+        applicationManager = new ApplicationManager(p);
     }
 
     @AfterClass
@@ -27,19 +30,19 @@ public class TestBase {
 
     @DataProvider
     public Iterator<Object[]> randomValidGroupGenerator() {
-        List<GroupData> groupData = generateRandomGroups(5);
+        List<GroupData> groupData = GroupDataGenerator.generateRandomGroups(5);
         List<Object[]> list = wrapGroupForDataProvider(groupData);
         return list.iterator();
     }
 
     @DataProvider
     public Iterator<Object[]> groupsFromCSVFile() throws IOException {
-        return wrapGroupForDataProvider(loadGroupsFromCsvFile(new File("groups.csv"))).iterator();
+        return wrapGroupForDataProvider(GroupDataGenerator.loadGroupsFromCsvFile(new File("groups.csv"))).iterator();
     }
 
     @DataProvider
     public Iterator<Object[]> groupsFromXMLFile() throws IOException {
-        return wrapGroupForDataProvider(loadGroupsFromXMLFile(new File("groups.xml"))).iterator();
+        return wrapGroupForDataProvider(GroupDataGenerator.loadGroupsFromXMLFile(new File("groups.xml"))).iterator();
     }
 
     private List<Object[]> wrapGroupForDataProvider(List<GroupData> groups) {

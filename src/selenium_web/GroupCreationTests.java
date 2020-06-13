@@ -1,4 +1,4 @@
-package selenium;
+package selenium_web;
 
 import org.junit.Before;
 import org.testng.annotations.*;

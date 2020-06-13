@@ -1,8 +1,7 @@
-package selenium;
+package selenium_web;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import utils.ListOf;
 
 import java.io.*;
 import java.util.ArrayList;

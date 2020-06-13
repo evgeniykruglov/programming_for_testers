@@ -1,4 +1,4 @@
-package selenium;
+package selenium_web;
 
 public class ContactData {
 
