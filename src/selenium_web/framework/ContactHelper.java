@@ -1,7 +1,7 @@
 package selenium_web.framework;
 
 import org.openqa.selenium.By;
-import selenium_web.ContactData;
+import selenium_web.tests.ContactData;
 
 public class ContactHelper extends HelperBase {
     public static boolean CREATION = true;

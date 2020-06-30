@@ -1,4 +1,4 @@
-package selenium_web;
+package selenium_web.tests;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;

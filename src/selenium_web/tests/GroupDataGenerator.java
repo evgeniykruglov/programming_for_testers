@@ -1,4 +1,4 @@
-package selenium_web;
+package selenium_web.tests;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;

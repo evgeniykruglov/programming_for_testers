@@ -1,4 +1,4 @@
-package selenium_web;
+package selenium_web.tests;
 
 public class Sample {
     public static void main(String[] args) {

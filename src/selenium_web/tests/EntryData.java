@@ -1,4 +1,4 @@
-package selenium_web;
+package selenium_web.tests;
 
 public class EntryData {
     private final String firstName;

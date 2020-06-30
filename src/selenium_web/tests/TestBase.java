@@ -1,4 +1,4 @@
-package selenium_web;
+package selenium_web.tests;
 
 import selenium_web.framework.ApplicationManager;
 import org.testng.annotations.*;

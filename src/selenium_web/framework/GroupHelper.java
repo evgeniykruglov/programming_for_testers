@@ -2,7 +2,7 @@ package selenium_web.framework;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import selenium_web.GroupData;
+import selenium_web.tests.GroupData;
 import utils.SortedListOf;
 
 import java.util.List;

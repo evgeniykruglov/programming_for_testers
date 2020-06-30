@@ -1,4 +1,4 @@
-package selenium_web;
+package selenium_web.tests;
 
 public class GroupData implements Comparable<GroupData>{
     private String name;
