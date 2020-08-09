@@ -1,19 +1,37 @@
 package selenium_javaEE.fw;
 
+import org.netbeans.jemmy.operators.*;
+import org.testng.annotations.Test;
 import selenium_javaEE.tests.Folders;
+import selenium_web.framework.HelperBase;
 
-public class FolderHelper {
-    private ApplicationManager applicationManager;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FolderHelper extends HelpersBase {
 
     public FolderHelper(ApplicationManager applicationManager) {
-        this.applicationManager = applicationManager;
+        super(applicationManager);
     }
 
     public Folders getFolders() {
-        return null;
+        List<String> list = new ArrayList<String>();
+        JFrameOperator mainFrame = applicationManager.getApplication();
+        JTreeOperator tree = new JTreeOperator(mainFrame);
+        Object[] children = tree.getChildren(tree.getRoot());
+        for (Object child : children) {
+            list.add("" + child);
+        }
+        return new Folders(list);
     }
 
-    public void createFolder(String folder) {
-
+    public String createFolder(String folder) {
+        applicationManager.getMenuHelper().pushCreateFolder();
+        JDialogOperator dialog = new JDialogOperator(applicationManager.getApplication());
+        new JTextFieldOperator(dialog).setText(folder);
+        new JButtonOperator(dialog, "OK").push();
+        return waitMessageDialog("Warning", 300);
     }
+
 }
