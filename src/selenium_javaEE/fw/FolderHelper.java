@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import selenium_javaEE.tests.Folders;
 import selenium_web.framework.HelperBase;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,6 @@ public class FolderHelper extends HelpersBase {
 
     public Folders getFolders() {
         List<String> list = new ArrayList<String>();
-        JFrameOperator mainFrame = applicationManager.getApplication();
         JTreeOperator tree = new JTreeOperator(mainFrame);
         Object[] children = tree.getChildren(tree.getRoot());
         for (Object child : children) {
@@ -28,7 +26,7 @@ public class FolderHelper extends HelpersBase {
 
     public String createFolder(String folder) {
         applicationManager.getMenuHelper().pushCreateFolder();
-        JDialogOperator dialog = new JDialogOperator(applicationManager.getApplication());
+        JDialogOperator dialog = new JDialogOperator(mainFrame);
         new JTextFieldOperator(dialog).setText(folder);
         new JButtonOperator(dialog, "OK").push();
         return waitMessageDialog("Warning", 300);

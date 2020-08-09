@@ -20,7 +20,7 @@ public class HelpersBase {
         long currentTime = startTime;
         while (currentTime < startTime + timeout) {
             JDialog dialog = JDialogOperator.findJDialog(
-                    applicationManager.getApplication().getOwner(),
+                    mainFrame.getOwner(),
                     title,
                     false,
                     false);
