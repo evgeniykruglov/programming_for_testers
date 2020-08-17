@@ -8,6 +8,7 @@ public class ApplicationManager {
     private static ApplicationManager singleton;
     private ContactHelper contactHelper;
     private ProcessHelper processHelper ;
+    private AutoItHelper autoItHelper;
 
     public static ApplicationManager getInstance(Properties props) {
         if (singleton == null) {
@@ -54,6 +55,13 @@ public class ApplicationManager {
             processHelper = new ProcessHelper(this);
         }
         return processHelper;
+    }
+
+    public AutoItHelper getAutoItHelper() {
+        if (autoItHelper == null) {
+            autoItHelper = new AutoItHelper(this);
+        }
+        return autoItHelper;
     }
 
 }

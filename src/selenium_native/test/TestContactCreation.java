@@ -1,5 +1,6 @@
 package selenium_native.test;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import selenium_native.framework.Contact;
 
@@ -9,10 +10,8 @@ public class TestContactCreation extends TestBase {
     public void testContactCreateWithValidData(){
         Contact contact = new Contact().setFirstName("Tester").setLastName("ItProger");
         applicationManager.getContactHelper().createContact(contact);
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Contact createdContact = applicationManager.getContactHelper().getFirstContact();
+        Assert.assertEquals(contact, createdContact);
+
     }
 }
