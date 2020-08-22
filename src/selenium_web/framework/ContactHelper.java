@@ -3,7 +3,7 @@ package selenium_web.framework;
 import org.openqa.selenium.By;
 import selenium_web.tests.ContactData;
 
-public class ContactHelper extends HelperBase {
+public class ContactHelper extends WebDriverHelperBase {
     public static boolean CREATION = true;
     public static boolean MODIFICATION = true;
 

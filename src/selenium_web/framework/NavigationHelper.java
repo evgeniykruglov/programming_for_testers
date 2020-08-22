@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class NavigationHelper extends HelperBase {
+public class NavigationHelper extends WebDriverHelperBase {
 
     public NavigationHelper(ApplicationManager manager) {
         super(manager);

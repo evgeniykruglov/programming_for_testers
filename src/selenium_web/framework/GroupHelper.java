@@ -7,7 +7,7 @@ import utils.SortedListOf;
 
 import java.util.List;
 
-public class GroupHelper extends HelperBase {
+public class GroupHelper extends WebDriverHelperBase {
     private SortedListOf<GroupData> cachedGroups;
 
     public GroupHelper(ApplicationManager manager) {
