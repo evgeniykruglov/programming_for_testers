@@ -65,7 +65,7 @@ public class ApplicationManager {
         return contactHelper;
     }
 
-    public ApplicationModel getApplicationModel() {
+    public ApplicationModel getModel() {
         return applicationModel;
     }
 
@@ -104,5 +104,9 @@ public class ApplicationManager {
             hibernateHelper = new HibernateHelper(this);
         }
         return hibernateHelper;
+    }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
     }
 }

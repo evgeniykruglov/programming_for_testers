@@ -15,14 +15,14 @@ public class GroupRemovalTest extends TestBase {
         applicationManager.getNavigationHelper().gotoGroupsPage();
 
 
-        SortedListOf<GroupData> originlist = applicationManager.getApplicationModel().getGroups();
+        SortedListOf<GroupData> originlist = applicationManager.getModel().getGroups();
         Random rnd = new Random();
         int index = rnd.nextInt(originlist.size()-1);
 
         applicationManager.getGroupHelper().deleteGroup(index);
         applicationManager.getNavigationHelper().gotoGroupsPage();
 
-        SortedListOf<GroupData>  newList = applicationManager.getApplicationModel().getGroups();
+        SortedListOf<GroupData>  newList = applicationManager.getModel().getGroups();
         assertThat(newList, equalTo(originlist.without(index)));
         //originlist.remove(index);
         //Collections.sort(originlist);

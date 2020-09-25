@@ -3,10 +3,11 @@ package selenium_web.tests;
 import org.junit.Before;
 import org.testng.annotations.*;
 import utils.SortedListOf;
+
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class GroupCreationTests extends TestBase{
+public class GroupCreationTests extends TestBase {
     @Before
 
 
@@ -32,12 +33,32 @@ public class GroupCreationTests extends TestBase{
     @Test(dataProvider = "groupsFromXMLFile")
     public void testGroupCreationWithValidDataXML(GroupData groupData) throws Exception {
         applicationManager.getNavigationHelper().gotoGroupsPage();
-        SortedListOf<GroupData> originlist = applicationManager.getApplicationModel().getGroups();
+        SortedListOf<GroupData> originlist = applicationManager.getModel().getGroups();
         applicationManager.getGroupHelper().createGroup(groupData);
         applicationManager.getNavigationHelper().gotoGroupsPage();
-        SortedListOf<GroupData> newList = applicationManager.getApplicationModel().getGroups();
+        SortedListOf<GroupData> newList = applicationManager.getModel().getGroups();
 
         assertThat(newList, equalTo(originlist.withAdded(groupData)));
+    }
+
+    @Test(dataProvider = "groupsFromXMLFile")
+    public void testGroupCreationWithValidData(GroupData group) throws Exception {
+        SortedListOf<GroupData> oldList = applicationManager.getModel().getGroups();
+        applicationManager.getGroupHelper().createGroup(group);
+        SortedListOf<GroupData> newList = applicationManager.getModel().getGroups();
+        assertThat(newList, equalTo(oldList));
+
+        if (timeToCheck()) {
+            if (applicationManager.getProperty("check.db").equals("true")) {
+                assertThat(applicationManager.getModel().getGroups(), equalTo(
+                        applicationManager.getHibernateHelper().listGroups()));
+            }
+
+            if (applicationManager.getProperty("check.ui").equals("true")) {
+                assertThat(applicationManager.getModel().getGroups(), equalTo(
+                        applicationManager.getGroupHelper().getUIGroups()));
+            }
+        }
     }
 
 }

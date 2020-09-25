@@ -26,4 +26,6 @@ public class ApplicationModel {
         groups.remove(index);
         return this;
     }
+
+
 }

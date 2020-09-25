@@ -1,7 +1,11 @@
 package selenium_web.framework;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import selenium_web.tests.GroupData;
+import utils.SortedListOf;
+
+import java.util.List;
 
 public class GroupHelper extends WebDriverHelperBase {
 
@@ -40,14 +44,14 @@ public class GroupHelper extends WebDriverHelperBase {
         initGroupCreation();
         fillGroupForm(groupData);
         submitGroupCreation();
-        manager.getApplicationModel().addGroup(groupData);
+        manager.getModel().addGroup(groupData);
         return this;
     }
 
     public GroupHelper deleteGroup(int index) {
         tickGroupCheckbox(index);
         deleteGroup();
-        manager.getApplicationModel().removeGroup(index);
+        manager.getModel().removeGroup(index);
         return this;
     }
 
@@ -57,7 +61,7 @@ public class GroupHelper extends WebDriverHelperBase {
         fillGroupForm(group);
         submitGroupEdition();
         returnToGroupsPage();
-        manager.getApplicationModel().removeGroup(index).addGroup(group);
+        manager.getModel().removeGroup(index).addGroup(group);
         return this;
     }
 
@@ -80,5 +84,17 @@ public class GroupHelper extends WebDriverHelperBase {
         click(By.name("delete"));
         
         return this;
+    }
+
+    public SortedListOf<GroupData> getUIGroups() {
+        SortedListOf<GroupData> groups = new SortedListOf<GroupData>();
+        manager.getNavigationHelper().gotoGroupsPage();
+        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
+        for (WebElement checkbox : checkboxes) {
+            String title = checkbox.getAttribute("title");
+            groups.add(new GroupData()
+                    .withName(title.substring("Select (".length(), title.length() - ")".length() )));
+        }
+        return groups;
     }
 }

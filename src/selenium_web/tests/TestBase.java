@@ -13,6 +13,8 @@ import java.util.Properties;
 
 public class TestBase {
     protected ApplicationManager applicationManager;
+    private int checkCounter;
+    private int checkFrequency;
 
     @BeforeClass
     public void setUp() throws Exception  {
@@ -20,8 +22,17 @@ public class TestBase {
         Properties p = new Properties();
         p.load(new FileReader(new File(configFile)));
         applicationManager = new ApplicationManager(p);
+        checkCounter = 0;
+        checkFrequency = Integer.parseInt(p.getProperty("check.frequency", "1"));
     }
 
+    protected boolean timeToCheck() {
+        checkCounter++;
+        if(checkCounter > checkFrequency) {
+            checkCounter = 0;
+            return true;
+        } else return false;
+    }
     @AfterClass
     public void tearDown() throws Exception {
         applicationManager.stop();
