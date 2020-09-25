@@ -16,14 +16,14 @@ public class GroupModificationTests extends TestBase {
         //applicationManager.getNavigationHelper().openMainPage();
         applicationManager.getNavigationHelper().gotoGroupsPage();
         GroupHelper groupHelper =applicationManager.getGroupHelper();
-        SortedListOf<GroupData> originlist = groupHelper.getGroups();
+        SortedListOf<GroupData> originlist = applicationManager.getApplicationModel().getGroups();
         Random rnd = new Random();
         int index = rnd.nextInt(originlist.size()-1);
 
         groupHelper.modifyGroup(index, group);
 
 
-        SortedListOf<GroupData>  newList = groupHelper.getGroups();
+        SortedListOf<GroupData>  newList = applicationManager.getApplicationModel().getGroups();
 
         assertThat(newList, equalTo(originlist.without(index).withAdded(group)));
 //        originlist.remove(index);

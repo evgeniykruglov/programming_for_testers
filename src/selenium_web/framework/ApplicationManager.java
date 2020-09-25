@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.fail;
 
 public class ApplicationManager {
-    protected WebDriver driver;
+    private WebDriver driver;
     public String baseUrl;
     private StringBuffer verificationErrors = new StringBuffer();
     private ContactHelper contactHelper;
@@ -20,32 +20,16 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private EntryHelper entryHelper;
     private Properties properties;
+    private HibernateHelper hibernateHelper;
+    private ApplicationModel applicationModel;
 
     public ApplicationManager(Properties props) throws Exception {
+
         properties = props;
-        baseUrl = properties.getProperty("baseUrl");
-        switch (properties.getProperty("browser").charAt(0)) {
-            case 'o':
-                System.setProperty("webdriver.opera.driver",Constants.OPERA_DRIVER_PATH.getText());
-                driver = new OperaDriver();
-                break;
-            case 'f':
-                System.setProperty("webdriver.gecko.driver",Constants.FIREFOX_DRIVER_PATH.getText());
-                driver = new FirefoxDriver();
-                break;
-            case 'i':
-                System.setProperty("webdriver.ie.driver",Constants.IE_DRIVER_PATH.getText());
-                driver = new InternetExplorerDriver();
-                break;
-            case 'c':
-                System.setProperty("webdriver.chrome.driver",Constants.CHROME_DRIVER_PATH.getText());
-                driver = new ChromeDriver();
-                break;
-            default:
-                throw new Exception("Type of webdriver is not specified. Please set value for constant Constants.WEBDRIVER");
-        }
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-        driver.get(baseUrl + "/");
+        applicationModel = new ApplicationModel();
+        applicationModel.setGroups(getHibernateHelper().listGroups());
+//        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
     }
 
     public void stop() {
@@ -68,7 +52,7 @@ public class ApplicationManager {
     }
 
     public EntryHelper getEntryHelper() {
-        if(entryHelper == null) {
+        if (entryHelper == null) {
             entryHelper = new EntryHelper(this);
         }
         return entryHelper;
@@ -79,5 +63,46 @@ public class ApplicationManager {
             contactHelper = new ContactHelper(this);
         }
         return contactHelper;
+    }
+
+    public ApplicationModel getApplicationModel() {
+        return applicationModel;
+    }
+
+    public WebDriver getDriver() {
+        if (driver == null) {
+
+            switch (properties.getProperty("browser").charAt(0)) {
+                case 'o':
+                    System.setProperty("webdriver.opera.driver", Constants.OPERA_DRIVER_PATH.getText());
+                    driver = new OperaDriver();
+                    break;
+                case 'f':
+                    System.setProperty("webdriver.gecko.driver", Constants.FIREFOX_DRIVER_PATH.getText());
+                    driver = new FirefoxDriver();
+                    break;
+                case 'i':
+                    System.setProperty("webdriver.ie.driver", Constants.IE_DRIVER_PATH.getText());
+                    driver = new InternetExplorerDriver();
+                    break;
+                case 'c':
+                    System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH.getText());
+                    driver = new ChromeDriver();
+                    break;
+                default:
+                    throw new Error("Type of webdriver is not specified. Please set value for constant Constants.WEBDRIVER");
+            }
+            baseUrl = properties.getProperty("baseUrl");
+            driver.get(baseUrl + "/");
+        }
+
+        return driver;
+    }
+
+    public HibernateHelper getHibernateHelper() {
+        if (hibernateHelper == null) {
+            hibernateHelper = new HibernateHelper(this);
+        }
+        return hibernateHelper;
     }
 }

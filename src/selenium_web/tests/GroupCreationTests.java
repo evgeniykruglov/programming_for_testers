@@ -13,10 +13,10 @@ public class GroupCreationTests extends TestBase{
     @Test(dataProvider = "groupsFromCSVFile")
     public void testGroupCreationWithValidDataCSV(GroupData groupData) throws Exception {
         applicationManager.getNavigationHelper().gotoGroupsPage();
-        SortedListOf<GroupData> originlist = applicationManager.getGroupHelper().getGroups();
+        SortedListOf<GroupData> originlist = new SortedListOf<GroupData>(applicationManager.getHibernateHelper().listGroups());
         applicationManager.getGroupHelper().createGroup(groupData);
         applicationManager.getNavigationHelper().gotoGroupsPage();
-        SortedListOf<GroupData> newList = applicationManager.getGroupHelper().getGroups();
+        SortedListOf<GroupData> newList = new SortedListOf<GroupData>(applicationManager.getHibernateHelper().listGroups());
 
         assertThat(newList, equalTo(originlist.withAdded(groupData)));
 //
@@ -32,10 +32,10 @@ public class GroupCreationTests extends TestBase{
     @Test(dataProvider = "groupsFromXMLFile")
     public void testGroupCreationWithValidDataXML(GroupData groupData) throws Exception {
         applicationManager.getNavigationHelper().gotoGroupsPage();
-        SortedListOf<GroupData> originlist = applicationManager.getGroupHelper().getGroups();
+        SortedListOf<GroupData> originlist = applicationManager.getApplicationModel().getGroups();
         applicationManager.getGroupHelper().createGroup(groupData);
         applicationManager.getNavigationHelper().gotoGroupsPage();
-        SortedListOf<GroupData> newList = applicationManager.getGroupHelper().getGroups();
+        SortedListOf<GroupData> newList = applicationManager.getApplicationModel().getGroups();
 
         assertThat(newList, equalTo(originlist.withAdded(groupData)));
     }

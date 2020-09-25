@@ -42,7 +42,9 @@ public class ContactHelper extends HelperBase {
             Contact contact = new Contact()
                     .setFirstName(applicationManager.getAutoItHelper().getText("TDBEdit12"))
                     .setLastName(applicationManager.getAutoItHelper().getText("TDBEdit11"));
-            applicationManager.getAutoItHelper().click("Cancel");
+            applicationManager.getAutoItHelper().click("Cancel")
+                    .winWaitAndActivate("Addressbook Portable", "", 5000);
+
             return contact;
     }
 }

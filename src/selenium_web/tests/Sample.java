@@ -13,6 +13,7 @@ public class Sample {
         Properties p = new Properties();
         p.load(new FileReader(new File(configFile)));
         ApplicationManager applicationManager = new ApplicationManager(p);
+        applicationManager.getHibernateHelper().listGroups();
         JdbcHelper jdbc = new JdbcHelper(applicationManager, "jdbc:mysql://localhost/db?user=user&password=password");
         System.out.println(jdbc.listGroups());
 

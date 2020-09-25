@@ -1,38 +1,15 @@
 package selenium_web.framework;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import selenium_web.tests.GroupData;
-import utils.SortedListOf;
-
-import java.util.List;
 
 public class GroupHelper extends WebDriverHelperBase {
-    private SortedListOf<GroupData> cachedGroups;
 
     public GroupHelper(ApplicationManager manager) {
         super(manager);
     }
 
-    public SortedListOf<GroupData> getGroups() {
-        //manager.getNavigationHelper().openMainPage();
 
-        if(cachedGroups == null) {
-            rebuildCache();
-        }
-        return cachedGroups;
-    }
-
-    private void rebuildCache() {
-        this.cachedGroups = new SortedListOf<GroupData>();
-        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
-        for (WebElement checkbox : checkboxes) {
-            String title = checkbox.getAttribute("title");
-            GroupData group = new GroupData()
-                    .withName(title.substring("Select (".length(), title.length() - ")".length() ));
-            this.cachedGroups.add(group);
-        }
-    }
 
     public GroupHelper initGroupCreation() {
         returnToGroupsPage();
@@ -42,7 +19,7 @@ public class GroupHelper extends WebDriverHelperBase {
 
     public GroupHelper submitGroupCreation() {
         click(By.name("submit"));
-        this.cachedGroups = null;
+        
         return this;
     }
 
@@ -63,12 +40,14 @@ public class GroupHelper extends WebDriverHelperBase {
         initGroupCreation();
         fillGroupForm(groupData);
         submitGroupCreation();
+        manager.getApplicationModel().addGroup(groupData);
         return this;
     }
 
-    public GroupHelper deleteGroup(int i) {
-        tickGroupCheckbox(i);
+    public GroupHelper deleteGroup(int index) {
+        tickGroupCheckbox(index);
         deleteGroup();
+        manager.getApplicationModel().removeGroup(index);
         return this;
     }
 
@@ -78,6 +57,7 @@ public class GroupHelper extends WebDriverHelperBase {
         fillGroupForm(group);
         submitGroupEdition();
         returnToGroupsPage();
+        manager.getApplicationModel().removeGroup(index).addGroup(group);
         return this;
     }
 
@@ -91,14 +71,14 @@ public class GroupHelper extends WebDriverHelperBase {
 
     public void submitGroupEdition() {
         click(By.xpath("//input[contains(@value,'Update')]"));
-        this.cachedGroups = null;
+        
     }
 
 
     private GroupHelper deleteGroup() {
         //click(By.xpath("//*[@id=\"content\"]/form[2]/input[1]"));
         click(By.name("delete"));
-        this.cachedGroups = null;
+        
         return this;
     }
 }

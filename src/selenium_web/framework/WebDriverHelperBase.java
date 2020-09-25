@@ -11,9 +11,9 @@ public class WebDriverHelperBase extends HelperBase {
 
     private static boolean acceptNextAlert = true;
 
-    public WebDriverHelperBase(ApplicationManager manager) {
+    public WebDriverHelperBase(ApplicationManager manager) throws Error {
         super(manager);
-        this.driver = manager.driver;
+        this.driver = manager.getDriver();
         wait = new WebDriverWait(driver, 10);
     }
 
