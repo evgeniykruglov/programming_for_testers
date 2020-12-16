@@ -9,7 +9,13 @@ public class AccountHelper extends WebDriverHelper {
 
     public AccountHelper signUp(User user) {
         openUrl("/signup_page.php");
-        //click(By.cssSelector());
+        type(By.name("username"), user.login);
+        type(By.name("password"), user.password);
+        click(By.cssSelector("input.button"));
+
+        MailHelper.Msg message = manager.getMailHelper().getNewMail(user.login, user.password);
+        String confirmationLink = message.getConfirmationLink();
+        openAbsoluteUrl(confirmationLink);
         return this;
     }
 

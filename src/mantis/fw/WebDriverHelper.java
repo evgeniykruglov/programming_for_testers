@@ -11,13 +11,13 @@ import java.util.concurrent.TimeUnit;
 
 public class WebDriverHelper {
 
-    private static WebDriver driver;
+    protected static WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
-    private final ApplicationManager manager;
+    public final ApplicationManager manager;
 
     private static boolean acceptNextAlert = true;
 
-    public WebDriverHelper(ApplicationManager manager)  {
+    public WebDriverHelper(ApplicationManager manager) {
         this.manager = manager;
         switch (manager.getProperty("browser").charAt(0)) {
             case 'o':
@@ -58,6 +58,10 @@ public class WebDriverHelper {
     }
 
     public void openUrl(String url) {
-        driver.get(manager.getProperty("baseUrl") + url);
+        openAbsoluteUrl(manager.getProperty("baseUrl") + url);
+    }
+
+    public void openAbsoluteUrl(String url) {
+        driver.get(url);
     }
 }

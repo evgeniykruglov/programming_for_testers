@@ -9,6 +9,7 @@ public class ApplicationManager {
 
     private Properties props;
     private AccountHelper accountHelper;
+    private MailHelper mailHelper;
 
     public static ApplicationManager getInstance() {
         if (singleton == null) {
@@ -51,5 +52,12 @@ public class ApplicationManager {
             accountHelper = new AccountHelper(this);
         }
         return accountHelper;
+    }
+
+    public MailHelper getMailHelper() {
+        if (mailHelper == null) {
+            mailHelper = new MailHelper(this);
+        }
+        return mailHelper;
     }
 }
