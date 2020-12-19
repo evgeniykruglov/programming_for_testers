@@ -19,11 +19,9 @@ public class MailHelper extends HelperBase{
 
     public MailHelper(ApplicationManager manager) {
         super(manager );
-
     }
 
     class Msg {
-
         private String text;
 
         public Msg(String text) {
@@ -49,12 +47,10 @@ public class MailHelper extends HelperBase{
         Store store;
         try {
             store = session.getStore("pop3");
-            store.connect(mailserver, user, password);
+            store.connect(manager.getProperty("mailserver"), user, password);
             Folder folder = store.getDefaultFolder().getFolder("INBOX");
             folder.open(Folder.READ_WRITE);
-            if (folder.getMessageCount() != 1) {
-                return null;
-            }
+            if (folder.getMessageCount() != 1) return null;
             Message message = folder.getMessage(1);
 
             message.setFlag(Flags.Flag.DELETED, true);

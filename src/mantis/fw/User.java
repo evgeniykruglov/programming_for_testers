@@ -16,4 +16,12 @@ public class User {
     public User setPassword(String s) {
         password = s; return this;
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

@@ -16,6 +16,9 @@ public class AccountHelper extends WebDriverHelper {
         MailHelper.Msg message = manager.getMailHelper().getNewMail(user.login, user.password);
         String confirmationLink = message.getConfirmationLink();
         openAbsoluteUrl(confirmationLink);
+
+        type(By.name("password"), user.password);
+        type(By.name("password_confirm"), user.password);
         return this;
     }
 
