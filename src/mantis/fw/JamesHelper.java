@@ -74,7 +74,7 @@ public class JamesHelper {
         try {
             out.println(value);
             out.flush();
-            System.out.println(value);
+            System.out.println(value + "\n");
         } catch (Exception e) {
             e.printStackTrace();
         }

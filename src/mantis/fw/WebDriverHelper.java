@@ -2,6 +2,7 @@ package mantis.fw;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -63,5 +64,13 @@ public class WebDriverHelper {
 
     public void openAbsoluteUrl(String url) {
         driver.get(url);
+    }
+
+    public WebElement findElement(By linkText) {
+        try {
+            return driver.findElement(linkText);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

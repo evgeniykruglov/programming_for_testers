@@ -5,13 +5,19 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.testng.Assert.*;
 
 public class SignUpTest extends TestBase {
     User user = new User()
-            .setLogin("")
-            .setEmail("")
-            .setPassword("");
+            .setLogin("1")
+            .setEmail("1")
+            .setPassword("1");
+
+    @BeforeClass
+    public void initShortcuts() {
+    }
 
     @BeforeClass
     public void createMailUser() {
@@ -32,6 +38,6 @@ public class SignUpTest extends TestBase {
     public void sigUpTest() {
 
         app.getAccountHelper().signUp(user);
-        assertTrue(app.getAccountHelper().isLogged(user));
+        assertThat(app.getAccountHelper().whoIsLogged(), equalTo(user.getLogin()));
     }
 }
